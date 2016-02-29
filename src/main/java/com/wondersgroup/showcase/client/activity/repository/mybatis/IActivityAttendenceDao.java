@@ -15,4 +15,5 @@ public interface IActivityAttendenceDao {
 	public List<ActivityAttendence> selectActivityAttendencesByUserId(String userId);
 	
 	public ActivityAttendence selectActivityAttendenceByActivityIdAndUserId(Map map);
+	
 }
