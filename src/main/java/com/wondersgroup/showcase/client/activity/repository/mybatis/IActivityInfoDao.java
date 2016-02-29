@@ -13,5 +13,4 @@ public interface IActivityInfoDao {
 	
 	public ActivityInfo selectActivityInfoById(String id);
 	
-	
 }
