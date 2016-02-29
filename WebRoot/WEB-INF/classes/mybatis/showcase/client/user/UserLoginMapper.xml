@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.wondersgroup.showcase.client.user.repository.mybatis.IUserLoginDao">
+	<resultMap id="tbUserLoginResultMap"
+		type="com.wondersgroup.showcase.client.entity.UserLogin">
+		<id property="id" column="ID" />
+		<result property="userAccount" column="USER_ACCOUNT" />
+		<result property="password" column="PASSWORD" />
+		<result property="origin" column="ORIGIN" />
+		<result property="email" column="EMAIL" />
+		<result property="flag" column="FLAG"/>
+		<result property="registerDate" column="REGISTER_DATE"/> 
+		<result property="token" column="TOKEN"/>
+	</resultMap>
+	<sql id="columnsOfUserLogin">
+	ID, USER_ACCOUNT, PASSWORD, ORIGIN, EMAIL,FLAG,REGISTER_DATE,TOKEN
+	</sql>
+	<insert id="insertUserLogin"
+		parameterType="com.wondersgroup.showcase.client.entity.UserLogin">
+		INSERT INTO tb_user_login
+		(
+		<include refid="columnsOfUserLogin" />
+		)
+		VALUES (#{id,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},#{flag,jdbcType=INTEGER},#{registerDate,jdbcType=TIMESTAMP},#{token,jdbcType=VARCHAR})
+	</insert>
+
+
+
+	<select id="selectUserLogin" resultMap="tbUserLoginResultMap">
+		SELECT
+		<include refid="columnsOfUserLogin" />
+		FROM
+		tb_user_login
+	</select>
+
+	<select id="selectUserLoginById" parameterType="String"
+		resultMap="tbUserLoginResultMap">
+		SELECT
+		<include refid="columnsOfUserLogin" />
+		FROM
+		tb_user_login
+		WHERE
+		ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectUserLoginByAccount" parameterType="String"
+		resultMap="tbUserLoginResultMap">
+		SELECT
+		*
+		FROM
+		tb_user_login
+		WHERE
+		USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+	</select>
+
+</mapper> 

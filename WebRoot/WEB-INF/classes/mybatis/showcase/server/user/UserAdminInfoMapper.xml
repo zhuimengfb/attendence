@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.wondersgroup.showcase.server.user.repository.mybatis.IUserAdminInfoDao">
+	<resultMap id="tbUserAdminInfoResultMap"
+		type="com.wondersgroup.showcase.server.entity.UserAdminInfo">
+		<id property="id" column="ID" />
+		<result property="userAccount" column="USER_ACCOUNT" />
+		<result property="userName" column="USER_NAME" />
+		<result property="email" column="EMAIL" />
+		<result property="flag" column="FLAG"/>
+		<result property="department" column="DEPARTMENT"/>
+	</resultMap>
+	<sql id="columnsOfUserAdminInfo">
+	ID, USER_ACCOUNT, USER_NAME, EMAIL,FLAG,DEPARTMENT
+	</sql>
+	<insert id="insertUserAdminInfo"
+		parameterType="com.wondersgroup.showcase.server.entity.UserAdminInfo">
+		INSERT INTO tb_user_admin_info
+		(
+		<include refid="columnsOfUserAdminInfo" />
+		)
+		VALUES (#{id,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR},
+		 #{userName,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},
+		 #{flag,jdbcType=INTEGER},#{department,jdbcType=VARCHAR})
+	</insert>
+
+
+	<select id="selectUserAdminInfoById" parameterType="String"
+		resultMap="tbUserAdminInfoResultMap">
+		SELECT
+		<include refid="columnsOfUserAdminInfo" />
+		FROM
+		tb_user_admin_info
+		WHERE
+		ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectUserAdminInfoByAccount" parameterType="String"
+		resultMap="tbUserAdminInfoResultMap">
+		SELECT
+		*
+		FROM
+		tb_user_admin_info
+		WHERE
+		USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateUserAdminInfo" parameterType="com.wondersgroup.showcase.server.entity.UserAdminInfo">
+		UPDATE
+		TB_USER_ADMIN_INFO
+		SET
+		USER_ACCOUNT=#{userAccount,jdbcType=VARCHAR},
+		USER_NAME=#{userName,jdbcType=VARCHAR},
+		EMAIL=#{email,jdbcType=VARCHAR},
+		FLAG=#{flag,jdbcType=INTEGER},
+		DEPARTMENT=#{department,jdbcType=VARCHAR}
+		WHERE
+		ID=#{id,jdbcType=VARCHAR}
+	</update>
+
+</mapper> 

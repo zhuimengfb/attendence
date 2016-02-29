@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.wondersgroup.showcase.client.activity.repository.mybatis.IActivityAttendenceDao">
+
+<resultMap type="com.wondersgroup.showcase.client.entity.ActivityAttendence" id="activityAttendenceResultMap">
+<id  property="id"  column="ID"></id>
+<result property="activityId" column="ACTIVITY_ID"/>
+<result property="userId" column="USER_ID"/>
+<result property="attendenceLatitude" column="ATTENDENCE_LATITUDE"/>
+<result property="attendenceLongitude" column="ATTENDENCE_LONGITUDE"/>
+<result  property="attendenceDate"  column="ATTENDENCE_DATE"/>
+<result  property="flag"  column="FLAG"/>
+</resultMap>
+
+<sql id="columnsOfActivityAttendence">
+	ID,ACTIVITY_ID,USER_ID,ATTENDENCE_LATITUDE,ATTENDENCE_LONGITUDE,ATTENDENCE_DATE,FLAG
+</sql>
+
+<insert id="insertActivityAttendence" parameterType="com.wondersgroup.showcase.client.entity.ActivityAttendence">
+	INSERT INTO TB_ACTIVITY_ATTENDENCE
+	(
+		<include refid="columnsOfActivityAttendence" />
+	)
+	VALUES (#{id,jdbcType=VARCHAR}, #{activityId,jdbcType=VARCHAR},
+	#{userId,jdbcType=VARCHAR},#{attendenceLatitude,jdbcType=NUMERIC},
+	#{attendenceLongitude,jdbcType=NUMERIC},#{attendenceDate,jdbcType=TIMESTAMP},#{flag,jdbcType=INTEGER})
+</insert>
+
+<select id="selectActivityAttendencesByActivityId" parameterType="String" resultMap="activityAttendenceResultMap">
+	SELECT * FROM TB_ACTIVITY_ATTENDENCE WHERE FLAG=1 AND ACTIVITY_ID=#{activityId,jdbcType=VARCHAR}
+</select>
+
+<select id="selectActivityAttendencesByUserId" parameterType="String" resultMap="activityAttendenceResultMap">
+	SELECT * FROM TB_ACTIVITY_ATTENDENCE WHERE FLAG=1 AND USER_ID=#{userId,jdbcType=VARCHAR}
+</select>
+
+<select id="selectActivityAttendenceByActivityIdAndUserId" parameterType="java.util.Map" resultMap="activityAttendenceResultMap">
+	SELECT * FROM TB_ACTIVITY_ATTENDENCE WHERE FLAG=1 AND USER_ID=#{userId,jdbcType=VARCHAR} AND ACTIVITY_ID=#{activityId,jdbcType=VARCHAR}
+</select>
+
+</mapper>

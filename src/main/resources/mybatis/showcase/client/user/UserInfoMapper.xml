@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.wondersgroup.showcase.client.user.repository.mybatis.IUserInfoDao">
+	<resultMap id="tbUserInfoResultMap"
+		type="com.wondersgroup.showcase.client.entity.UserInfo">
+		<id property="id" column="ID" />
+		<result property="userAccount" column="USER_ACCOUNT" />
+		<result property="userName" column="USER_NAME" />
+		<result property="sex" column="SEX" />
+		<result property="type" column="TYPE" />
+		<result property="flag" column="FLAG"/>
+		<result property="birthday" column="BIRTHDAY"/> 
+		<result property="reserve" column="RESERVE"/>
+		<result property="personalDes" column="PERSONAL_DES"/>
+	</resultMap>
+	<sql id="columnsOfUserInfo">
+	ID, USER_ACCOUNT, USER_NAME, SEX, TYPE,FLAG,BIRTHDAY,RESERVE,PERSONAL_DES
+	</sql>
+	<insert id="insertUserInfo"
+		parameterType="com.wondersgroup.showcase.client.entity.UserInfo">
+		INSERT INTO tb_user_info
+		(
+		<include refid="columnsOfUserInfo" />
+		)
+		VALUES (#{id,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+		#{type,jdbcType=INTEGER},#{flag,jdbcType=INTEGER},#{birthday,jdbcType=TIMESTAMP},
+		#{reserve,jdbcType=VARCHAR},#{personalDes,jdbcType=VARCHAR})
+	</insert>
+
+
+
+	<select id="selectUserInfoById" parameterType="String"
+		resultMap="tbUserInfoResultMap">
+		SELECT
+		<include refid="columnsOfUserInfo" />
+		FROM
+		tb_user_info
+		WHERE
+		ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectUserByAccount" parameterType="String"
+		resultMap="tbUserInfoResultMap">
+		SELECT
+		*
+		FROM
+		tb_user_info
+		WHERE
+		USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateUserInfo" parameterType="com.wondersgroup.showcase.client.entity.UserInfo">
+		UPDATE tb_user_info
+		SET
+		USER_NAME=#{userName,jdbcType=VARCHAR},
+		USER_ACCOUNT=#{userAccount,jdbcType=VARCHAR},
+		TYPE=#{type,jdbcType=INTEGER},
+		FLAG=#{flag,jdbcType=INTEGER},
+		BIRTHDAY=#{birthday,jdbcType=TIMESTAMP},
+		RESERVE=#{reserve,jdbcType=VARCHAR},
+		PERSONAL_DES=#{personalDes,jdbcType=VARCHAR}
+		WHERE
+		ID=#{id,jdbcType=VARCHAR}
+	</update>
+
+
+</mapper> 

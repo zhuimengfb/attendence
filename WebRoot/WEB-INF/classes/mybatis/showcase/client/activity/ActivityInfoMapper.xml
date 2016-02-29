@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.wondersgroup.showcase.client.activity.repository.mybatis.IActivityInfoDao">
+
+<resultMap type="com.wondersgroup.showcase.client.entity.ActivityInfo" id="activityInfoResultMap">
+<id  property="id"  column="ID"></id>
+<result property="title" column="TITLE"/>
+<result property="place" column="PLACE"/>
+<result property="latitude" column="LATITUDE"/>
+<result property="longitude" column="LONGITUDE"/>
+<result  property="activityDes"  column="ACTIVITY_DES"/>
+<result  property="activityPicAddress"  column="ACTIVITY_PIC_ADDRESS"/>
+<result  property="publisherId"  column="PUBLISHER_ID"/>
+<result  property="activityType"  column="ACTIVITY_TYPE"/>
+<result  property="startDate"  column="START_DATE"/>
+<result  property="endDate"  column="END_DATE"/>
+<result  property="generateDate"  column="GENERATE_DATE"/>
+<result  property="modifyDate"  column="MODIFY_DATE"/>
+<result  property="reserve"  column="RESERVE"/>
+<result  property="status"  column="STATUS"/>
+<result  property="flag"  column="FLAG"/>
+</resultMap>
+
+<sql id="columnsOfActivityInfo">
+	ID,TITLE,PLACE,LATITUDE,LONGITUDE,ACTIVITY_DES,ACTIVITY_PIC_ADDRESS,PUBLISHER_ID,ACTIVITY_TYPE,START_DATE,END_DATE
+	,GENERATE_DATE,MODIFY_DATE,RESERVE,STATUS,FLAG
+</sql>
+
+
+<select id="selectActivityInfosByPage" parameterType="java.util.Map" resultMap="activityInfoResultMap">
+	SELECT * FROM TB_ACTIVITY_INFO WHERE FLAG=1 ORDER BY START_DATE DESC LIMIT #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER};
+</select>
+
+<select id="selectActivityInfoById" parameterType="String" resultMap="activityInfoResultMap">
+	SELECT * FROM TB_ACTIVITY_INFO WHERE FLAG=1 AND ID=#{id,jdbcType=VARCHAR}
+</select>
+
+</mapper>
