@@ -12,4 +12,6 @@ public interface IActivityInfoDao {
 	public List<ActivityInfo> selectActivityInfosByPage(Map map);
 	
 	public ActivityInfo selectActivityInfoById(String id);
+	
+	
 }
