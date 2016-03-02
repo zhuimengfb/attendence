@@ -1,6 +1,8 @@
 package com.wondersgroup.showcase.server.course.service.imp;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.wondersgroup.showcase.client.entity.CourseInfo;
 import com.wondersgroup.showcase.core.service.BaseService;
 import com.wondersgroup.showcase.core.utils.DateUtils;
+import com.wondersgroup.showcase.core.utils.PageUtils;
 import com.wondersgroup.showcase.core.utils.UUIDGenerator;
 import com.wondersgroup.showcase.server.course.repository.mybatis.ICourseInfoServerDao;
 import com.wondersgroup.showcase.server.course.service.ICourseInfoServerService;
@@ -59,6 +62,16 @@ public class CourseInfoServerService extends BaseService implements ICourseInfoS
 	public CourseInfo selectCourseByTitle(String title) {
 		// TODO Auto-generated method stub
 		return courseInfoServerDao.selectCourseByTitle(title);
+	}
+
+	@Override
+	public List<CourseInfo> selectCourseByPage(int pageNum) {
+		// TODO Auto-generated method stub
+		PageUtils pageUtils=new PageUtils(pageNum);
+		Map<String,Integer> map= new HashMap<String, Integer>();
+		map.put("startNum", pageUtils.getStart());
+		map.put("endNum", pageUtils.getEnd());
+		return courseInfoServerDao.selectCourseByPage(map);
 	}
 
 }

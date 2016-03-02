@@ -1,5 +1,6 @@
 package com.wondersgroup.showcase.server.course.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.wondersgroup.showcase.client.entity.CourseInfo;
 import com.wondersgroup.showcase.core.web.BaseSpringController;
 import com.wondersgroup.showcase.core.web.Servlets;
 import com.wondersgroup.showcase.server.course.service.ICourseInfoServerService;
@@ -35,6 +37,13 @@ public class CourseInfoServerController extends BaseSpringController {
 	
 	@RequestMapping(value="/list",method={RequestMethod.GET})
 	public Object gotoCourseList(Model model,HttpServletRequest request){
+		Map map=Servlets.getParametersStartingWith(request, "");
+		int currentPage=1;
+		if (map.get("currentPage")!=null)
+			currentPage=Integer.parseInt((String)map.get("currentPage"));
+		List<CourseInfo> courseInfos=courseInfoServerService.selectCourseByPage(currentPage);
+		model.addAttribute("courseList", courseInfos);
+		model.addAttribute("currentPage", currentPage++);
 		return "console/course/courseList";
 	}
 }

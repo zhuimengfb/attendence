@@ -5,7 +5,7 @@
 <html>
 <head>
 
-<title>活动管理</title>
+<title>已选课程学员</title>
 <%@ include file="/WEB-INF/commons/attendence/commonlib.jsp"%>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -22,16 +22,16 @@
 	<%@ include file="/WEB-INF/commons/attendence/consoleHeader.jsp"%>
 
 	<div class="container container-normal" style="margin-top: 60px;">
+		<input type="hidden" name="currentPage" id="currentPage" value="${currentPage}">
 		<ul class="nav nav-tabs">
-			<li role="presentation" class="active"><a href="${ctx}/console/activity/list">我的活动</a></li>
-			<li role="presentation"><a href="${ctx}/console/course/list">我的课程</a></li>
+		<%-- 	<li role="presentation"><a href="${ctx}/console/activity/list">我的活动</a></li>
+			<li role="presentation" class="active"><a href="${ctx}/console/course/list">我的课程</a></li> --%>
 			<li role="presentation" class="dropdown" style="float: right;"><a
 				class="dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false">
 					操作 <span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="${ctx}/console/activity/add">发布活动</a></li>
-					<li><a href="${ctx}/console/course/add">发布课程</a>
+					<li><a href="${ctx}/console/course/addMember">添加学员</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -39,23 +39,19 @@
 			<table class="table table-striped" style="text-align:center;">
 				<tr>
 					<td>序号</td>
-					<td>活动名称</td>
-					<td>活动时间</td>
-					<td>地点</td>
+					<td>姓名</td>
+					<td>学号</td>
 					<td>操作</td>
 				</tr>
-				<c:forEach items="${activityList}" var="activityList"
+				<c:forEach items="${courseMemberList}" var="courseMemberList"
 					varStatus="status">
 					<tr>
 						<td>${status.index + 1}</td>
-						<td><a
-							href="${ctx}/console/activity/${activityList.id}/edit">${activityList.title}</a></td>
-						<td><fmt:formatDate value="${activityList.startDate}"
-								type="both" /> ~ <fmt:formatDate value="${activityList.endDate}"
-								type="both" /></td>
-						<td>${activityList.place}</td>
-						<td><a
-							href="${ctx}/console/activity/${activityList.id}/attendence">签到情况</a></td>
+						<td>${courseMemberList.name}</td>
+						<td>${courseMemberList.account}</td>
+						<td><span><a
+							href="${ctx}/console/course/${courseMemberList.id}/removeMember">删除</a></span>
+							</td>
 					</tr>
 				</c:forEach>
 			</table>
