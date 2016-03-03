@@ -5,13 +5,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wondersgroup.showcase.client.entity.CourseInfo;
+import com.wondersgroup.showcase.client.entity.CourseSelectMember;
+import com.wondersgroup.showcase.core.utils.ExcelUtils;
+import com.wondersgroup.showcase.core.utils.FileUtils;
+import com.wondersgroup.showcase.core.utils.FileUtils.FileType;
 import com.wondersgroup.showcase.core.web.BaseSpringController;
 import com.wondersgroup.showcase.core.web.Servlets;
 import com.wondersgroup.showcase.server.course.service.ICourseInfoServerService;
@@ -45,5 +51,33 @@ public class CourseInfoServerController extends BaseSpringController {
 		model.addAttribute("courseList", courseInfos);
 		model.addAttribute("currentPage", currentPage++);
 		return "console/course/courseList";
+	}
+	@RequestMapping(value="/courseSelectList",method={RequestMethod.GET})
+	public Object gotoCOurseSelectList(Model model,HttpServletRequest request){
+		
+		
+		return "console/course/courseSelectList";
+	}
+	@RequestMapping(value="/addMember",method={RequestMethod.GET})
+	public Object gotoAddMember(Model model,HttpServletRequest request){
+		
+		
+		return "console/course/addCourseSelect";
+	}
+	@RequestMapping(value="/addMember",method={RequestMethod.POST})
+	public Object addMember(Model model,HttpServletRequest request){
+		Map map=Servlets.getParametersStartingWith(request, "");
+		List<MultipartFile> multipartFiles=FileUtils.getFileFromRequest(request);
+		if (multipartFiles!=null){
+			for (MultipartFile file : multipartFiles){
+				//如果是excel表格，进行解析
+				if (FileUtils.getFileType(file)==FileType.excel){
+					List<CourseSelectMember> courseSelectMembers=ExcelUtils.getCourseSelectMember(file);
+					int a=1;
+				}
+			}
+		}
+		
+		return "redirect:/console/course/courseSelectList";
 	}
 }
