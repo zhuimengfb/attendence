@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.wondersgroup.showcase.server.course.repository.mybatis.ICourseInfoServerDao">
+
+	<resultMap type="com.wondersgroup.showcase.client.entity.CourseInfo"
+		id="courseInfoResultMap">
+		<id property="id" column="ID"></id>
+		<result property="title" column="TITLE" />
+		<result property="place" column="PLACE" />
+		<result property="department" column="DEPARTMENT" />
+		<result property="picAddress" column="PIC_ADDRESS" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="publisherId" column="PUBLISHER_ID" />
+		<result property="credit" column="CREDIT" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="generateDate" column="GENERATE_DATE" />
+		<result property="modifyDate" column="MODIFY_DATE" />
+		<result property="reserve" column="RESERVE" />
+		<result property="flag" column="FLAG" />
+	</resultMap>
+
+	<sql id="columnsOfCourseInfo">
+		ID,TITLE,PLACE,DEPARTMENT,PIC_ADDRESS,DESCRIPTION,PUBLISHER_ID,CREDIT,START_DATE,END_DATE
+		,GENERATE_DATE,MODIFY_DATE,RESERVE,FLAG
+	</sql>
+
+
+	<select id="selectActivityInfoById" parameterType="String"
+		resultMap="courseInfoResultMap">
+		SELECT * FROM TB_COURSE_INFO WHERE ID = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectCourseByTitle" parameterType="String"
+		resultMap="courseInfoResultMap">
+		SELECT * FROM TB_COURSE_INFO WHERE TITLE=#{title,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectCourseByPage" parameterType="java.util.Map"
+		resultMap="courseInfoResultMap">
+		SELECT * FROM TB_COURSE_INFO WHERE FLAG=1 ORDER BY GENERATE_DATE DESC LIMIT
+		#{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER};
+	</select>
+
+	<insert id="insertCourseInfo" parameterType="com.wondersgroup.showcase.client.entity.CourseInfo">
+		INSERT INTO TB_COURSE_INFO
+		(
+		<include refid="columnsOfCourseInfo" />
+		)
+		VALUES
+		(
+		#{id,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{place,jdbcType=VARCHAR},#{department,jdbcType=VARCHAR},#{picAddress,jdbcType=VARCHAR}
+		,#{description,jdbcType=CLOB},#{publisherId,jdbcType=VARCHAR},#{credit,jdbcType=INTEGER},#{startDate,jdbcType=TIMESTAMP}
+		,#{endDate,jdbcType=TIMESTAMP},#{generateDate,jdbcType=TIMESTAMP},#{modifyDate,jdbcType=TIMESTAMP},#{reserve,jdbcType=VARCHAR}
+		,#{flag,jdbcType=INTEGER}
+		)
+	</insert>
+	<update id="updateCourseInfo"
+		parameterType="com.wondersgroup.showcase.client.entity.CourseInfo">
+		UPDATE
+		TB_COURSE_INFO
+		SET
+		TITLE=#{title,jdbcType=VARCHAR},
+		PLACE=#{place,jdbcType=VARCHAR},
+		DEPARTMENT=#{department,jdbcType=VARCHAR},
+		PIC_ADDRESS=#{picAdress,jdbcType=VARCHAR},
+		DESCRIPTION=#{description,jdbcType=CLOB},
+		PUBLISHER_ID=#{publisherId,jdbcType=VARCHAR},
+		CREDIT=#{credit,jdbcType=INTEGER},
+		START_DATE=#{startDate,jdbcType=TIMESTAMP},
+		END_DATE=#{endDate,jdbcType=TIMESTAMP},
+		MODIFY_DATE=#{modifyDate,jdbcType=TIMESTAMP},
+		RESERVE=#{reserve,jdbcType=VARCHAR},
+		FLAG=#{flag,jdbcType=INTEGER}
+		WHERE
+		ID=#{id}
+	</update>
+</mapper>
