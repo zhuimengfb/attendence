@@ -11,6 +11,8 @@ public interface ICourseInfoServerDao {
 
 	public void insertCourseInfo(CourseInfo courseInfo);
 	
+	public void updateCourseInfo(CourseInfo courseInfo);
+	
 	public CourseInfo selectCourseByTitle(String title);
 	
 	public List<CourseInfo> selectCourseByPage(Map map);

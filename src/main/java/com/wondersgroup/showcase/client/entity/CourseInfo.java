@@ -5,8 +5,10 @@ import java.util.Date;
 
 public class CourseInfo implements Serializable{
 	
+	public static final String ID = "id";
 	public static final String TITLE = "title";
 	public static final String START_DATE = "startDate";
+	public static final String PUBLISHER_ID = "publisherId";
 	public static final String END_DATE = "endDate";
 	public static final String DEPARTMENT = "department";
 	public static final String PIC_ADDRESS = "picAddress";
@@ -25,6 +27,7 @@ public class CourseInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String title;
+	private String publisherId;
 	private String department;
 	private String picAddress;
 	private String place;
@@ -47,6 +50,12 @@ public class CourseInfo implements Serializable{
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getPublisherId() {
+		return publisherId;
+	}
+	public void setPublisherId(String publisherId) {
+		this.publisherId = publisherId;
 	}
 	public String getDepartment() {
 		return department;

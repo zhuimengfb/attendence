@@ -1551,7 +1551,8 @@
 }
 .site-navbar .navbar-nav > li > a:hover,
 .site-navbar .navbar-nav > li > a:focus {
-  background-color: #3a485d;
+  /* background-color: #3a485d; */
+  background-color:#1FAEA7;
 }
 .site-navbar .navbar-nav > .active > a,
 .site-navbar .navbar-nav > .active > a:hover,

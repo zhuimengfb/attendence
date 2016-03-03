@@ -3,7 +3,14 @@ package com.wondersgroup.showcase.client.entity;
 import java.io.Serializable;
 
 public class CourseSelectMember implements Serializable{
-
+	
+	public static final String ID="id";
+	public static final String MEMBER_ACCOUNT="memberAccount";
+	public static final String MEMBER_NAME="memberName";
+	public static final String COURSE_ID="courseId";
+	public static final String COURSE_TITLE="courseTitle";
+	public static final String MEMBER_APARTMENT="memberApartment";
+	public static final String FLAG="flag";
 	/**
 	 * 
 	 */

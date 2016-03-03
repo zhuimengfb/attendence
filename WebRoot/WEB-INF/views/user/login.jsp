@@ -16,6 +16,8 @@
 	rel="stylesheet">
 <link href="${ctx}/static/css/activity/autumn.css" media="screen"
 	rel="stylesheet">
+<link href="${ctx}/static/css/activity/activity.css" media="screen"
+	rel="stylesheet">
 </head>
 
 <body>

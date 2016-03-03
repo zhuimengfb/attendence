@@ -15,6 +15,8 @@
 	rel="stylesheet">
 <link href="${ctx}/static/css/activity/autumn.css" media="screen"
 	rel="stylesheet">
+<link href="${ctx}/static/css/activity/activity.css" media="screen"
+	rel="stylesheet">
 
 </head>
 
@@ -46,7 +48,8 @@
 						</div>
 						<div id="confirmPasswordDiv" class="form-group">
 							<label for="passwordAgain">确认密码</label> <input type="password"
-								class="form-control" id="passwordAgain" onchange="javascript:confirmPassword();"
+								class="form-control" id="passwordAgain"
+								onchange="javascript:confirmPassword();"
 								name="name_passwordAgain" placeholder="确认密码">
 						</div>
 						<div class="form-group">
@@ -54,7 +57,8 @@
 								class="form-control" id="inputEmail1" name="email"
 								placeholder="邮箱" check-type="required mail">
 						</div>
-						<button type="submit" id="submit" class="btn btn-primary btn-lg btn-block"
+						<button type="submit" id="submit"
+							class="btn btn-primary btn-lg btn-block"
 							style="background: #2CCCBF">注册</button>
 
 					</div>
@@ -66,33 +70,36 @@
 		$(function() {
 			//1. 简单写法：
 			$("#register-form").validation();
-			$("#submit").on('click',function(event) {
-				// 2.最后要调用 valid()方法。
-				//  valide(object,msg),提示信息显示，object位置后面增加提示信息。如不填object 则自动找最后一个button submit.
-				//  valide(msg)
-				if ($("#register-form").valid(this,'填写信息不完整或有误') == false) {
-					return false;
-				}
-				if (document.getElementById('password').value != document
-					.getElementById('passwordAgain').value) {
-					$("#confirmPasswordDiv").removeClass('has-success');
-					$("#confirmPasswordDiv").addClass('has-error');
-					return false;
-				} else {}
-			});
+			$("#submit")
+					.on(
+							'click',
+							function(event) {
+								// 2.最后要调用 valid()方法。
+								//  valide(object,msg),提示信息显示，object位置后面增加提示信息。如不填object 则自动找最后一个button submit.
+								//  valide(msg)
+								if ($("#register-form").valid(this,
+										'填写信息不完整或有误') == false) {
+									return false;
+								}
+								if (document.getElementById('password').value != document
+										.getElementById('passwordAgain').value) {
+									$("#confirmPasswordDiv").removeClass(
+											'has-success');
+									$("#confirmPasswordDiv").addClass(
+											'has-error');
+									return false;
+								} else {
+								}
+							});
 		});
-		function confirmPassword(){
+		function confirmPassword() {
 			if (document.getElementById('password').value != document
 					.getElementById('passwordAgain').value) {
-				$("#confirmPasswordDiv").removeClass(
-				'has-success');
-				$("#confirmPasswordDiv").addClass(
-						'has-error');
-			}else{
-				$("#confirmPasswordDiv").removeClass(
-				'has-error');
-				$("#confirmPasswordDiv").addClass(
-				'has-success');
+				$("#confirmPasswordDiv").removeClass('has-success');
+				$("#confirmPasswordDiv").addClass('has-error');
+			} else {
+				$("#confirmPasswordDiv").removeClass('has-error');
+				$("#confirmPasswordDiv").addClass('has-success');
 			}
 		}
 	</script>

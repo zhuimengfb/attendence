@@ -9,6 +9,8 @@ public interface ICourseInfoServerService {
 
 	public void insertCourseInfo(Map map);
 	
+	public void updateCOurseInfo(Map map);
+	
 	public CourseInfo selectCourseByTitle(String title);
 	
 	public List<CourseInfo> selectCourseByPage(int pageNum);
