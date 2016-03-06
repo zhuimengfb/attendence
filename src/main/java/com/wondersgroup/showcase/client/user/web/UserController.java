@@ -75,5 +75,9 @@ public class UserController extends BaseSpringController{
 		};
 		return "redirect:/user/login";
 	}
+	@RequestMapping(value="/userCenter",method={RequestMethod.GET})
+	public Object gotoUserCenter(Model model,HttpServletRequest request){
+		return "user/UserCenter";
+	}
 
 }

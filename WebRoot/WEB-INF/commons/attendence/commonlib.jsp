@@ -11,8 +11,8 @@
 
 
 <link href="${ctx}/static/css/main.css" rel="stylesheet">
-<link href="${ctx}/static/bootstrap-material/css/bootstrap-design.css" rel="stylesheet">
-<link href="${ctx}/static/bootstrap-material/css/ripple.min.css" rel="stylesheet">
+<%-- <link href="${ctx}/static/bootstrap-material/css/bootstrap-design.css" rel="stylesheet">
+<link href="${ctx}/static/bootstrap-material/css/ripple.min.css" rel="stylesheet"> --%>
 <link href="${ctx}/static/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
 <link href="${ctx}/static/bootstrap-fileinput/css/fileinput.css" rel="stylesheet">
