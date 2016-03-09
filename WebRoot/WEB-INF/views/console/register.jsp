@@ -19,7 +19,7 @@
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/commons/attendence/header.jsp"%>
+	<%@ include file="/WEB-INF/commons/attendence/consoleHeader.jsp"%>
 	<div class="container container-normal">
 		<div class="es-section login-section">
 			<!-- <div style="margin: auto;font-size: 20px;">

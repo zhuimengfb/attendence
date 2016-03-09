@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import com.wondersgroup.showcase.core.utils.FileUtils.FileType;
 import com.wondersgroup.showcase.core.web.BaseSpringController;
 import com.wondersgroup.showcase.core.web.Servlets;
 import com.wondersgroup.showcase.server.course.service.ICourseInfoServerService;
+import com.wondersgroup.showcase.server.course.service.ICourseSelectMemberServerService;
 
 @Controller
 @RequestMapping(value="/console/course")
@@ -28,7 +30,8 @@ public class CourseInfoServerController extends BaseSpringController {
 
 	@Autowired
 	ICourseInfoServerService courseInfoServerService;
-	
+	@Autowired
+	ICourseSelectMemberServerService courseSelectMemberServerService;
 	
 	@RequestMapping(value="/add",method={RequestMethod.GET})
 	public Object gotoAddCourse(Model model,HttpServletRequest request){
@@ -52,10 +55,12 @@ public class CourseInfoServerController extends BaseSpringController {
 		model.addAttribute("currentPage", currentPage++);
 		return "console/course/courseList";
 	}
-	@RequestMapping(value="/courseSelectList",method={RequestMethod.GET})
-	public Object gotoCOurseSelectList(Model model,HttpServletRequest request){
-		
-		
+	@RequestMapping(value="/{courseId}/courseSelectList",method={RequestMethod.GET})
+	public Object gotoCourseSelectList(@PathVariable String courseId,Model model,HttpServletRequest request){
+		Map map=Servlets.getParametersStartingWith(request, "");
+		map.put(CourseSelectMember.COURSE_ID, courseId);
+		List<CourseSelectMember> courseSelectMembers=courseSelectMemberServerService.selectCourseSelectMembersByCourseId(map);
+		model.addAttribute(CourseSelectMember.COURSE_ID, courseSelectMembers);
 		return "console/course/courseSelectList";
 	}
 	@RequestMapping(value="/addMember",method={RequestMethod.GET})
@@ -73,7 +78,12 @@ public class CourseInfoServerController extends BaseSpringController {
 				//如果是excel表格，进行解析
 				if (FileUtils.getFileType(file)==FileType.excel){
 					List<CourseSelectMember> courseSelectMembers=ExcelUtils.getCourseSelectMember(file);
-					int a=1;
+					for (int i=0;i<courseSelectMembers.size();i++){
+						CourseInfo courseInfo=courseInfoServerService.selectCourseByTitle(courseSelectMembers.get(i).getCourseTitle());
+						courseSelectMembers.get(i).setCourseId(courseInfo.getId());
+						courseSelectMembers.get(i).setFlag(CourseSelectMember.FLAG_NORMAL);
+						courseSelectMemberServerService.insertCourseSelectMember(courseSelectMembers.get(i));
+					}
 				}
 			}
 		}

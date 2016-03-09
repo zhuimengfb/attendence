@@ -63,12 +63,33 @@
 	<!-- 定义无需Controller的url<->view直接映射 -->
 	<!-- <mvc:view-controller path="/" view-name="job/jobBasicInfo/input"/> -->
 	<mvc:view-controller path="/" view-name="index" />
-	<mvc:interceptors>
+	<!-- <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean
 				class="com.wondersgroup.showcase.core.interceptor.StopWatchHandlerInterceptor"></bean>
 		</mvc:interceptor>
 
-	</mvc:interceptors>
+	</mvc:interceptors> -->
+	<mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/console/*" />
+        <bean class="com.wondersgroup.showcase.server.interceptor.ServerSecurityInterceptor">
+            <property name="excludedUrls">
+                <list>
+                    <value>/console/login</value>
+                    <value>/console/register</value>
+                </list>
+            </property>
+        </bean>
+    </mvc:interceptor>
+</mvc:interceptors>
+<bean id="handlerExceptionResolver"
+    class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    <property name="exceptionMappings">
+        <props>
+            <prop key="com.wondersgroup.showcase.server.interceptor.AuthorizationException">redirect:/console/login</prop>
+        </props>
+    </property>
+</bean>
 </beans>

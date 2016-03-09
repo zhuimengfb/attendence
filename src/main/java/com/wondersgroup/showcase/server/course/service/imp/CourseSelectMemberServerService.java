@@ -1,5 +1,6 @@
 package com.wondersgroup.showcase.server.course.service.imp;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,18 +12,16 @@ import com.wondersgroup.showcase.core.service.BaseService;
 import com.wondersgroup.showcase.core.utils.PageUtils;
 import com.wondersgroup.showcase.core.utils.UUIDGenerator;
 import com.wondersgroup.showcase.server.course.repository.mybatis.ICourseSelectMemberServerDao;
-import com.wondersgroup.showcase.server.course.service.ICourseSeleceMemberServerService;
+import com.wondersgroup.showcase.server.course.service.ICourseSelectMemberServerService;
 
 @Service
-public class CourseSelectMemberServerService extends BaseService implements ICourseSeleceMemberServerService {
-
+public class CourseSelectMemberServerService extends BaseService implements ICourseSelectMemberServerService {
 	@Autowired
 	ICourseSelectMemberServerDao courseSelectMemberServerDao;
 	@Override
 	public void insertCourseSelectMember(Map map) {
 		// TODO Auto-generated method stub
-		CourseSelectMember courseSelectMember = courseSelectMemberServerDao.selectMemberByCourseIdAndMemberAccount(map);
-		if (courseSelectMember!=null) return;
+		if (isStudentCourseSelceted(map)) return;
 		CourseSelectMember courseSelectMember2=new CourseSelectMember();
 		courseSelectMember2.setCourseId((String)map.get(CourseSelectMember.COURSE_ID));
 		courseSelectMember2.setFlag(Integer.parseInt((String)map.get(CourseSelectMember.FLAG)));
@@ -33,7 +32,20 @@ public class CourseSelectMemberServerService extends BaseService implements ICou
 		courseSelectMember2.setMemberName((String)map.get(CourseSelectMember.MEMBER_NAME));
 		courseSelectMemberServerDao.insertCourseSelectMember(courseSelectMember2);
 	}
-
+	@Override
+	public void insertCourseSelectMember(CourseSelectMember courseSelectMember) {
+		// TODO Auto-generated method stub
+		Map<String,String> map=new HashMap<String, String>();
+		map.put(CourseSelectMember.COURSE_ID, courseSelectMember.getCourseId());
+		map.put(CourseSelectMember.MEMBER_ACCOUNT, courseSelectMember.getMemberAccount());
+		if (isStudentCourseSelceted(map)) return;
+		courseSelectMember.setId(UUIDGenerator.getUUID());
+		courseSelectMemberServerDao.insertCourseSelectMember(courseSelectMember);
+	}
+	private boolean isStudentCourseSelceted(Map<String,String> map){
+		if (courseSelectMemberServerDao.selectMemberByCourseIdAndMemberAccount(map)!=null) return true;
+		return false;
+	}
 	@Override
 	public List<CourseSelectMember> selectCourseSelectMembersByCourseId(
 			Map map) {

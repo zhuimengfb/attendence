@@ -11,6 +11,9 @@ public class CourseSelectMember implements Serializable{
 	public static final String COURSE_TITLE="courseTitle";
 	public static final String MEMBER_APARTMENT="memberApartment";
 	public static final String FLAG="flag";
+	
+	public static final int FLAG_NORMAL=1;
+	
 	/**
 	 * 
 	 */

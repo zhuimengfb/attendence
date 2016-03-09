@@ -5,9 +5,11 @@ import java.util.Map;
 
 import com.wondersgroup.showcase.client.entity.CourseSelectMember;
 
-public interface ICourseSeleceMemberServerService {
+public interface ICourseSelectMemberServerService {
 
 	public void insertCourseSelectMember(Map map);
+	
+	public void insertCourseSelectMember(CourseSelectMember courseSelectMember);
 
 	public List<CourseSelectMember> selectCourseSelectMembersByCourseId(
 			Map map);
