@@ -73,12 +73,12 @@
 	</mvc:interceptors> -->
 	<mvc:interceptors>
     <mvc:interceptor>
-        <mvc:mapping path="/console/*" />
+        <mvc:mapping path="/console/**" />
         <bean class="com.wondersgroup.showcase.server.interceptor.ServerSecurityInterceptor">
             <property name="excludedUrls">
                 <list>
-                    <value>/console/login</value>
-                    <value>/console/register</value>
+                    <value>/console/user/login</value>
+                    <value>/console/user/register</value>
                 </list>
             </property>
         </bean>
@@ -88,7 +88,7 @@
     class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
     <property name="exceptionMappings">
         <props>
-            <prop key="com.wondersgroup.showcase.server.interceptor.AuthorizationException">redirect:/console/login</prop>
+            <prop key="com.wondersgroup.showcase.server.interceptor.AuthorizationException">redirect:/console/user/login</prop>
         </props>
     </property>
 </bean>

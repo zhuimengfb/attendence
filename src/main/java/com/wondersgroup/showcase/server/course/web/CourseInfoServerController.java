@@ -18,6 +18,8 @@ import com.wondersgroup.showcase.client.entity.CourseInfo;
 import com.wondersgroup.showcase.client.entity.CourseSelectMember;
 import com.wondersgroup.showcase.core.utils.ExcelUtils;
 import com.wondersgroup.showcase.core.utils.FileUtils;
+import com.wondersgroup.showcase.core.utils.ImageUtils;
+import com.wondersgroup.showcase.core.utils.UUIDGenerator;
 import com.wondersgroup.showcase.core.utils.FileUtils.FileType;
 import com.wondersgroup.showcase.core.web.BaseSpringController;
 import com.wondersgroup.showcase.core.web.Servlets;
@@ -40,8 +42,12 @@ public class CourseInfoServerController extends BaseSpringController {
 	@RequestMapping(value="/add",method={RequestMethod.POST})
 	public Object addCourse(Model model,HttpServletRequest request){
 		Map map=Servlets.getParametersStartingWith(request, "");
-		//courseInfoServerService.insertCourseInfo(map);
-		return "redirect:/course/list";
+		String id=UUIDGenerator.getUUID();
+		map.put(CourseInfo.ID, id);
+		map.put(CourseInfo.PIC_ADDRESS, ImageUtils.saveCoursePicture(request, id));
+		map.put(CourseInfo.FLAG, CourseInfo.FLAG_NORMAL);
+		courseInfoServerService.insertCourseInfo(map);
+		return "redirect:/console/course/list";
 	}
 	
 	@RequestMapping(value="/list",method={RequestMethod.GET})

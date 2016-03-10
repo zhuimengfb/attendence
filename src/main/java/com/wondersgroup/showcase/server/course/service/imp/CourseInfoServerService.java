@@ -44,7 +44,7 @@ public class CourseInfoServerService extends BaseService implements ICourseInfoS
 			}
 		}
 		courseInfo.setDepartment((String)map.get(CourseInfo.DEPARTMENT));
-		courseInfo.setFlag(Integer.parseInt((String)map.get(CourseInfo.FLAG)));
+		courseInfo.setFlag((Integer)map.get(CourseInfo.FLAG));
 		courseInfo.setPublisherId((String)map.get(CourseInfo.PUBLISHER_ID));
 		courseInfo.setGenerateDate(date);
 		courseInfo.setId(UUIDGenerator.getUUID());

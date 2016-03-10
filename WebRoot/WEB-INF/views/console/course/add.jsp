@@ -37,6 +37,7 @@
 					name="add-course-form" id="add-course-form"
 					enctype="multipart/form-data">
 					<div>
+						<input type="hidden" name="publisherId" id="publisherId" value="${sessionScope.SESSION_USER_INFO.id}"> 
 						<div class="form-group">
 							<label for="inputTitle">培训课程标题</label> <input type="text"
 								class="form-control" id="inputTitle" name="title"

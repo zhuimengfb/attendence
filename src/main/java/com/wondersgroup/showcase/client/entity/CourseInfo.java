@@ -19,8 +19,8 @@ public class CourseInfo implements Serializable{
 	public static final String FLAG = "flag";
 	public static final String RESERVE = "reserve";
 	public static final String CREDIT="credit";
-	public static final int NORMAL_FLAG = 1;
-	public static final int DELETE_FLAG = 0;
+	public static final int FLAG_NORMAL = 1;
+	public static final int FLAG_DELETE = 0;
 	/**
 	 * 
 	 */

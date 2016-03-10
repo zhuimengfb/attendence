@@ -55,7 +55,7 @@ public class ActivityAdminController extends BaseSpringController{
 		activityMap.put(ActivityInfo.ID, id);
 		String activityPicAddres="";
 		try {
-			String path=ImageUtils.getImagePath();
+			String path=ImageUtils.getActivityImagePath();
 			long  startTime=System.currentTimeMillis();
 	        //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
 			CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
