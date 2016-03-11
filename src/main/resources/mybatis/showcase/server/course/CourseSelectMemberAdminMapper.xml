@@ -25,18 +25,24 @@
 		WHERE COURSE_ID = #{courseId,jdbcType=VARCHAR} AND
 		MEMBER_ACCOUNT=#{memberAccount,jdbcType=VARCHAR}
 	</select>
+	
+	<select id="selectCourseSelectMemberById"
+		parameterType="String" resultMap="courseSelectMemberResultMap">
+		SELECT * FROM TB_COURSE_SELECT
+		WHERE ID = #{id,jdbcType=VARCHAR}
+	</select>
 
 	<select id="selectCourseSelectMembersByCourseIdWithPage"
 		parameterType="java.util.Map" resultMap="courseSelectMemberResultMap">
 		SELECT * FROM TB_COURSE_SELECT
 		WHERE
-		COURSE_ID=#{courseId,jdbcType=VARCHAR} LIMIT
+		COURSE_ID=#{courseId,jdbcType=VARCHAR} AND FLAG=1 LIMIT
 		#{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
 	</select>
 
 	<select id="selectCourseSelectMembersByCourseTitleWithPage" parameterType="java.util.Map"
 		resultMap="courseSelectMemberResultMap">
-		SELECT * FROM TB_COURSE_SELECT WHERE COURSE_TITLE=#{courseTitle,jdbcType=VARCHAR} LIMIT
+		SELECT * FROM TB_COURSE_SELECT WHERE COURSE_TITLE=#{courseTitle,jdbcType=VARCHAR} AND FLAG=1 LIMIT
 		#{start,jdbcType=INTEGER},
 		#{pageSize,jdbcType=INTEGER};
 	</select>
@@ -53,7 +59,7 @@
 		#{courseTitle,jdbcType=VARCHAR},#{memberApartment,jdbcType=VARCHAR},#{flag,jdbcType=INTEGER}
 		)
 	</insert>
-	<update id="deleteCourseSelectMember">
+	<update id="deleteCourseSelectMemberById">
 		UPDATE
 		TB_COURSE_SELECT
 		SET

@@ -12,12 +12,14 @@ public interface ICourseSelectMemberServerDao {
 	
 	public void insertCourseSelectMember(CourseSelectMember courseSelectMember);
 	
+	public CourseSelectMember selectCourseSelectMemberById(String id);
+	
 	public CourseSelectMember selectMemberByCourseIdAndMemberAccount(Map map);
 	
 	public List<CourseSelectMember> selectCourseSelectMembersByCourseIdWithPage(Map map);
 	
 	public List<CourseSelectMember> selectCourseSelectMembersByCourseTitleWithPage(Map map);
 	
-	public void deleteCourseSelectMember(String memberAccount);
+	public void deleteCourseSelectMemberById(String id);
 	
 }

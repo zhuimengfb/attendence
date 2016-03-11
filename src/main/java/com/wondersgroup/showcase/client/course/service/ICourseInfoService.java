@@ -1,16 +1,11 @@
-package com.wondersgroup.showcase.server.course.service;
+package com.wondersgroup.showcase.client.course.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.wondersgroup.showcase.client.entity.CourseInfo;
 
-public interface ICourseInfoServerService {
+public interface ICourseInfoService {
 
-	public void insertCourseInfo(Map map);
-	
-	public void updateCOurseInfo(Map map);
-	
 	public CourseInfo selectCourseByTitle(String title);
 	
 	public CourseInfo selectCourseById(String id);

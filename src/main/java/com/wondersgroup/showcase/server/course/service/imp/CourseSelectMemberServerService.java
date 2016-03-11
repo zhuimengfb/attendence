@@ -24,7 +24,9 @@ public class CourseSelectMemberServerService extends BaseService implements ICou
 		if (isStudentCourseSelceted(map)) return;
 		CourseSelectMember courseSelectMember2=new CourseSelectMember();
 		courseSelectMember2.setCourseId((String)map.get(CourseSelectMember.COURSE_ID));
-		courseSelectMember2.setFlag(Integer.parseInt((String)map.get(CourseSelectMember.FLAG)));
+		if (map.get(CourseSelectMember.FLAG)==null)
+			courseSelectMember2.setFlag(CourseSelectMember.FLAG_NORMAL);
+		else courseSelectMember2.setFlag(Integer.parseInt((String)map.get(CourseSelectMember.FLAG)));
 		courseSelectMember2.setCourseTitle((String)map.get(CourseSelectMember.COURSE_TITLE));
 		courseSelectMember2.setId(UUIDGenerator.getUUID());
 		courseSelectMember2.setMemberAccount((String)map.get(CourseSelectMember.MEMBER_ACCOUNT));
@@ -67,9 +69,14 @@ public class CourseSelectMemberServerService extends BaseService implements ICou
 	}
 
 	@Override
-	public void deleteCourseSelectMember(String memberAccount) {
+	public void deleteCourseSelectMemberById(String id) {
 		// TODO Auto-generated method stub
-		courseSelectMemberServerDao.deleteCourseSelectMember(memberAccount);
+		courseSelectMemberServerDao.deleteCourseSelectMemberById(id);
+	}
+	@Override
+	public CourseSelectMember selectCourseSelectMemberById(String id) {
+		// TODO Auto-generated method stub
+		return courseSelectMemberServerDao.selectCourseSelectMemberById(id);
 	}
 
 }

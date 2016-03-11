@@ -1,0 +1,32 @@
+.user-card{
+	margin-top:20px;
+	background:#ffffff;
+	height:480px;
+}
+
+.user-card .user-pic{
+	text-align:center;
+	
+}
+.user-pic img{
+	margin:30px auto 0 auto;
+	width:120px;
+	height:120px;
+}
+.user-profile{
+	margin-top:40px;
+	margin-left:80px;
+	font-size:20px;
+}
+.user-profile .name{
+	padding:10px 0 10px 0;
+}
+.user-profile .account{
+	padding:10px 0 10px 0;
+}
+.user-profile .department{
+	padding:10px 0 10px 0;
+}
+.user-profile .credit{
+	padding:10px 0 10px 0;
+}

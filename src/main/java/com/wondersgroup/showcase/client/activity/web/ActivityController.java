@@ -39,7 +39,7 @@ public class ActivityController extends BaseSpringController{
 	@Autowired
 	IActivityAttendenceService activityAttendenceService;
 	
-	@RequestMapping(value="/home",method = {RequestMethod.GET})
+	@RequestMapping(value="/list",method = {RequestMethod.GET})
 	public Object home(Model model,HttpServletRequest request){
 		Map map=new HashMap<>();
 		map.put("currentPage", 1);

@@ -47,7 +47,7 @@
 				</c:if>
 				<c:if test="${sessionScope.SESSION_IS_LOGIN=='LOGIN_OK'}">
 					<ul class="nav navbar-nav navbar-right" style="margin-right:30px;">
-						<li id="userCenter"><a href="#"> <span
+						<li id="userCenter"><a href="${ctx}/user/userCenter"> <span
 								style="color:#fff;font-size:16px;;margin-right:30px; ">${sessionScope.SESSION_USER_INFO.userName}</span>
 						</a></li>
 					</ul>

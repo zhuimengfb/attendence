@@ -116,8 +116,14 @@
 								//  valide(msg)
 								if ($("#add-activity-form").valid(this,
 										'填写信息不完整或有误') == false) {
+									document.getElementById('submit').click();
 									return false;
-								} else {
+								}
+								var startDate=document.getElementById('startDate').value;
+								var endDate=document.getElementById('endDate').value;
+								if (startDate>endDate){
+									alert('活动结束时间必须大于起始时间');
+									return false;
 								}
 							});
 		});

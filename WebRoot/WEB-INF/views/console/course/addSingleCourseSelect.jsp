@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head>
 
-<title>添加培训课程</title>
+<title>添加学员</title>
 <%@ include file="/WEB-INF/commons/attendence/commonlib.jsp"%>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -33,44 +33,34 @@
 				登录
 			</div> -->
 			<div class="add-course-form">
-				<form action="${ctx}/console/course/add" method="post"
-					name="add-course-form" id="add-course-form"
+				<form action="${ctx}/console/course/${courseInfo.id}/addMember" method="post"
+					name="add-courseMember-form" id="add-courseMember-form"
 					enctype="multipart/form-data">
 					<div>
-						<input type="hidden" name="publisherId" id="publisherId" value="${sessionScope.SESSION_USER_INFO.id}"> 
+						<input type="hidden" id="courseId" name="courseId" value="${courseInfo.id}">
 						<div class="form-group">
-							<label for="inputTitle">培训课程标题</label> <input type="text"
-								class="form-control" id="inputTitle" name="title"
-								placeholder="培训课程标题" check-type="required"
+							<label for="memberAccount">学号/工号</label> <input type="text"
+								class="form-control" id="memberAccount" name="memberAccount"
+								placeholder="学号/工号" check-type="required number"
 								required-message="输入不能为空">
 						</div>
 						<div class="form-group">
-							<label for="inputPlace">课程地点</label> <input type="text"
-								class="form-control" id="inputPlace" name="place"
-								placeholder="课程地点" check-type="required">
+							<label for="memberName">姓名</label> <input type="text"
+								class="form-control" id="memberName" name="memberName"
+								placeholder="姓名" check-type="required">
 						</div>
 						<div class="form-group">
-							<label for="inputCredit">课程学分</label> <input type="text"
-								class="form-control" id="inputCredit" name="credit"
-								placeholder="课程学分" check-type="required number">
+							<label for="memberApartment">部门</label> <input type="text"
+								class="form-control" id="memberApartment" name="memberApartment"
+								placeholder="部门" check-type="required">
 						</div>
 						<div class="form-group">
-							<label for="inputDepartment">授课部门</label> <input type="text"
-								class="form-control" id="inputDepartment" name="department"
-								placeholder="授课部门" check-type="required">
+							<label for="courseTitle">课程名称</label> <input type="text"
+								class="form-control" readonly="readonly" id="courseTitle" name="courseTitle" value="${courseInfo.title}"
+								placeholder="课程名称">
 						</div>
 						
-							
-						<div class="form-group">
-							<label for="activityDes">课程描述</label>
-							<textarea class="form-control" rows="5" cols="100"
-								id="activityDes" name="description" check-type="required"></textarea>
-						</div>
-						<div class="form-group">
-							<label>课程图片</label>
-							<input type="file" class="form-control" id="activityPic" name="activityPic"> 
-						</div>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="form-group col-lg-6">
 								<label for="startDate">课程起始时间</label>
 								<div class='input-group date' id='datetimepicker11'>
@@ -98,10 +88,10 @@
 			});
 		});
 	</script>
-						</div>
+						</div> -->
 						<button type="submit" id="submit"
 							class="btn btn-primary btn-lg btn-block"
-							style="background: #2CCCBF" onclick="submit1();">添加课程</button>
+							style="background: #2CCCBF" onclick="submit1();">添加</button>
 					</div>
 				</form>
 			</div>
@@ -110,7 +100,7 @@
 	<script type="text/javascript">
 		$(function() {
 			//1. 简单写法：
-			$("#add-course-form").validation();
+			$("#add-courseMember-form").validation();
 			$("#submit")
 					.on(
 							'click',
@@ -118,24 +108,18 @@
 								// 2.最后要调用 valid()方法。
 								//  valide(object,msg),提示信息显示，object位置后面增加提示信息。如不填object 则自动找最后一个button submit.
 								//  valide(msg)
-								if ($("#add-course-form").valid(this,
+								if ($("#add-courseMember-form").valid(this,
 										'填写信息不完整或有误') == false) {
-									document.getElementById('submit').click();
 									return false;
-								} 
-								var startDate=document.getElementById('startDate').value;
-								var endDate=document.getElementById('endDate').value;
-								if (startDate>endDate){
-									alert('课程结束时间必须大于起始时间');
-									return false;
+								} else {
 								}
 							});
 		});
 	</script>
-	<script type="text/javascript">
-		$("#activityPic").fileinput({
+<!-- 	<script type="text/javascript">
+		$("#excel").fileinput({
 			'showUpload':false
 		});
-	</script>
+	</script> -->
 </body>
 </html>

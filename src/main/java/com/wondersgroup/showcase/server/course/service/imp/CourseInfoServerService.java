@@ -114,4 +114,10 @@ public class CourseInfoServerService extends BaseService implements ICourseInfoS
 		courseInfoServerDao.updateCourseInfo(courseInfo);
 	}
 
+	@Override
+	public CourseInfo selectCourseById(String id) {
+		// TODO Auto-generated method stub
+		return courseInfoServerDao.selectCourseById(id);
+	}
+
 }

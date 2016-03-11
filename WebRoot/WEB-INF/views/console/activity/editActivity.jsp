@@ -111,14 +111,19 @@
 					.on(
 							'click',
 							function(event) {
-								document.getElementById('submit').click();
 								// 2.最后要调用 valid()方法。
 								//  valide(object,msg),提示信息显示，object位置后面增加提示信息。如不填object 则自动找最后一个button submit.
 								//  valide(msg)
 								if ($("#edit-activity-form").valid(this,
 										'填写信息不完整或有误') == false) {
+									document.getElementById('submit').click();
 									return false;
-								} else {
+								}
+								var startDate=document.getElementById('startDate').value;
+								var endDate=document.getElementById('endDate').value;
+								if (startDate>endDate){
+									alert('活动结束时间必须大于起始时间');
+									return false;
 								}
 							});
 		});

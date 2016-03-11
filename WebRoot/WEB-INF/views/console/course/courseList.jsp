@@ -33,6 +33,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="${ctx}/console/activity/add">发布活动</a></li>
 					<li><a href="${ctx}/console/course/add">发布课程</a>
+					<li><a href="${ctx}/console/course/addMember">批量添加学员</a>
 				</ul>
 			</li>
 		</ul>
@@ -58,7 +59,7 @@
 						<td><span><a
 							href="${ctx}/console/course/${courseList.id}/addMember">添加学员</a></span>
 							<span><a
-							href="${ctx}/console/course/${courseList.id}/showMember">查看学员</a></span>
+							href="${ctx}/console/course/${courseList.id}/courseSelectList">查看学员</a></span>
 							</td>
 					</tr>
 				</c:forEach>

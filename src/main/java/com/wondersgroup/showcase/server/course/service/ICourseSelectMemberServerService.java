@@ -10,6 +10,8 @@ public interface ICourseSelectMemberServerService {
 	public void insertCourseSelectMember(Map map);
 	
 	public void insertCourseSelectMember(CourseSelectMember courseSelectMember);
+	
+	public CourseSelectMember selectCourseSelectMemberById(String id);
 
 	public List<CourseSelectMember> selectCourseSelectMembersByCourseId(
 			Map map);
@@ -17,5 +19,5 @@ public interface ICourseSelectMemberServerService {
 	public List<CourseSelectMember> selectCourseSelectMembersByCourseTitle(
 			Map map);
 
-	public void deleteCourseSelectMember(String memberAccount);
+	public void deleteCourseSelectMemberById(String id);
 }

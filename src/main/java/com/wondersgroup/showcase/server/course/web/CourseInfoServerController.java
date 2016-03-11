@@ -65,18 +65,30 @@ public class CourseInfoServerController extends BaseSpringController {
 	public Object gotoCourseSelectList(@PathVariable String courseId,Model model,HttpServletRequest request){
 		Map map=Servlets.getParametersStartingWith(request, "");
 		map.put(CourseSelectMember.COURSE_ID, courseId);
+		map.put("currentPage", 1);
 		List<CourseSelectMember> courseSelectMembers=courseSelectMemberServerService.selectCourseSelectMembersByCourseId(map);
-		model.addAttribute(CourseSelectMember.COURSE_ID, courseSelectMembers);
+		model.addAttribute(CourseSelectMember.COURSE_ID, courseId);
+		model.addAttribute("courseSelectMembers", courseSelectMembers);
 		return "console/course/courseSelectList";
 	}
+	@RequestMapping(value="/{courseId}/addMember",method={RequestMethod.GET})
+	public Object gotoAddMember(@PathVariable String courseId, Model model,HttpServletRequest request){
+		CourseInfo courseInfo=courseInfoServerService.selectCourseById(courseId);
+		model.addAttribute("courseInfo",courseInfo);
+		return "console/course/addSingleCourseSelect";
+	}
+	@RequestMapping(value="/{courseId}/addMember",method={RequestMethod.POST})
+	public Object addSingleMember(@PathVariable String courseId, Model model,HttpServletRequest request){
+		Map map=Servlets.getParametersStartingWith(request, "");
+		courseSelectMemberServerService.insertCourseSelectMember(map);
+		return "redirect:/console/course/"+courseId+"/courseSelectList";
+	}
 	@RequestMapping(value="/addMember",method={RequestMethod.GET})
-	public Object gotoAddMember(Model model,HttpServletRequest request){
-		
-		
+	public Object addBatchMember(Model model,HttpServletRequest request){
 		return "console/course/addCourseSelect";
 	}
 	@RequestMapping(value="/addMember",method={RequestMethod.POST})
-	public Object addMember(Model model,HttpServletRequest request){
+	public Object addMember(@PathVariable String courseId, Model model,HttpServletRequest request){
 		Map map=Servlets.getParametersStartingWith(request, "");
 		List<MultipartFile> multipartFiles=FileUtils.getFileFromRequest(request);
 		if (multipartFiles!=null){
@@ -94,6 +106,12 @@ public class CourseInfoServerController extends BaseSpringController {
 			}
 		}
 		
-		return "redirect:/console/course/courseSelectList";
+		return "redirect:/console/course/list";
+	}
+	@RequestMapping(value="/{id}/removeMember",method={RequestMethod.GET})
+	public Object removeMember(@PathVariable String id, Model model,HttpServletRequest request){
+		CourseSelectMember courseSelectMember=courseSelectMemberServerService.selectCourseSelectMemberById(id);
+		courseSelectMemberServerService.deleteCourseSelectMemberById(courseSelectMember.getId());
+		return "redirect:/console/course/"+courseSelectMember.getCourseId()+"/courseSelectList";
 	}
 }

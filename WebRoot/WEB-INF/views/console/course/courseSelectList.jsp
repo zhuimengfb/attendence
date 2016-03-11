@@ -24,14 +24,14 @@
 	<div class="container container-normal" style="margin-top: 60px;">
 		<input type="hidden" name="currentPage" id="currentPage" value="${currentPage}">
 		<ul class="nav nav-tabs">
-		<%-- 	<li role="presentation"><a href="${ctx}/console/activity/list">我的活动</a></li>
-			<li role="presentation" class="active"><a href="${ctx}/console/course/list">我的课程</a></li> --%>
+		 	<li role="presentation"><a href="${ctx}/console/activity/list">我的活动</a></li>
+			<li role="presentation"><a href="${ctx}/console/course/list">我的课程</a></li>
 			<li role="presentation" class="dropdown" style="float: right;"><a
 				class="dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false">
 					操作 <span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="${ctx}/console/course/addMember">添加学员</a></li>
+					<li><a href="${ctx}/console/course/${courseId}/addMember">添加学员</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -43,14 +43,14 @@
 					<td>学号</td>
 					<td>操作</td>
 				</tr>
-				<c:forEach items="${courseMemberList}" var="courseMemberList"
+				<c:forEach items="${courseSelectMembers}" var="courseSelectMembers"
 					varStatus="status">
 					<tr>
 						<td>${status.index + 1}</td>
-						<td>${courseMemberList.name}</td>
-						<td>${courseMemberList.account}</td>
+						<td>${courseSelectMembers.memberName}</td>
+						<td>${courseSelectMembers.memberAccount}</td>
 						<td><span><a
-							href="${ctx}/console/course/${courseMemberList.id}/removeMember">删除</a></span>
+							href="${ctx}/console/course/${courseSelectMembers.id}/removeMember">删除</a></span>
 							</td>
 					</tr>
 				</c:forEach>
